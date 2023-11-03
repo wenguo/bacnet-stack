@@ -79,9 +79,9 @@ if(BACNET_STACK_DEPRECATED_DISABLE)
   add_definitions(-DBACNET_STACK_DEPRECATED_DISABLE)
 endif()
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -DBACAPP_PRINT_ENABLED=1")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DBACAPP_PRINT_ENABLED=1")
 
 #
 # library
@@ -493,6 +493,13 @@ target_compile_definitions(
   PRIVATE
   PRINT_ENABLED=1)
 target_link_libraries(${PROJECT_NAME} PUBLIC Threads::Threads)
+
+
+add_compile_definitions(
+        PRINT_ENABLED=1
+        BACAPP_PRINT_ENABLED=1
+        )
+
 
 add_library(
   ${PROJECT_NAME}::${PROJECT_NAME}

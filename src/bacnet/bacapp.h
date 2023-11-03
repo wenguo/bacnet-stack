@@ -39,6 +39,8 @@
 #include "bacnet/timestamp.h"
 #include "bacnet/weeklyschedule.h"
 
+#define BACAPP_PRINT_ENABLED 1
+
 struct BACnet_Application_Data_Value;
 typedef struct BACnet_Application_Data_Value {
     bool context_specific;      /* true if context specific data */
@@ -91,11 +93,11 @@ typedef struct BACnet_Application_Data_Value {
         BACNET_WEEKLY_SCHEDULE Weekly_Schedule;
         BACNET_HOST_N_PORT Host_Address;
         BACNET_DEVICE_OBJECT_PROPERTY_REFERENCE
-            Device_Object_Property_Reference;
+        Device_Object_Property_Reference;
         BACNET_DEVICE_OBJECT_REFERENCE
-            Device_Object_Reference;
+        Device_Object_Reference;
         BACNET_OBJECT_PROPERTY_REFERENCE
-            Object_Property_Reference;
+        Object_Property_Reference;
         BACNET_DESTINATION Destination;
 #endif
     } type;
@@ -146,160 +148,160 @@ typedef struct BACnet_Object_Property_Value {
 extern "C" {
 #endif /* __cplusplus */
 
-    BACNET_STACK_EXPORT
-    void bacapp_value_list_init(
-        BACNET_APPLICATION_DATA_VALUE *value,
-        size_t count);
-    BACNET_STACK_EXPORT
-    void bacapp_property_value_list_init(
-        BACNET_PROPERTY_VALUE *value,
-        size_t count);
+BACNET_STACK_EXPORT
+void bacapp_value_list_init(
+    BACNET_APPLICATION_DATA_VALUE *value,
+    size_t count);
+BACNET_STACK_EXPORT
+void bacapp_property_value_list_init(
+    BACNET_PROPERTY_VALUE *value,
+    size_t count);
 
-    BACNET_STACK_EXPORT
-    void bacapp_property_value_list_link(
-        BACNET_PROPERTY_VALUE *value_list,
-        size_t count);
+BACNET_STACK_EXPORT
+void bacapp_property_value_list_link(
+    BACNET_PROPERTY_VALUE *value_list,
+    size_t count);
 
-    BACNET_STACK_EXPORT
-    int bacapp_property_value_encode(
-        uint8_t *apdu,
-        BACNET_PROPERTY_VALUE *value);
-    BACNET_STACK_EXPORT
-    int bacapp_property_value_decode(
-        uint8_t *apdu,
-        uint32_t apdu_size,
-        BACNET_PROPERTY_VALUE *value);
+BACNET_STACK_EXPORT
+int bacapp_property_value_encode(
+    uint8_t *apdu,
+    BACNET_PROPERTY_VALUE *value);
+BACNET_STACK_EXPORT
+int bacapp_property_value_decode(
+    uint8_t *apdu,
+    uint32_t apdu_size,
+    BACNET_PROPERTY_VALUE *value);
 
-    BACNET_STACK_EXPORT
-    int bacapp_encode_data(
-        uint8_t * apdu,
-        BACNET_APPLICATION_DATA_VALUE * value);
-    BACNET_STACK_EXPORT
-    int bacapp_decode_data(
-        uint8_t * apdu,
-        uint8_t tag_data_type,
-        uint32_t len_value_type,
-        BACNET_APPLICATION_DATA_VALUE * value);
+BACNET_STACK_EXPORT
+int bacapp_encode_data(
+    uint8_t *apdu,
+    BACNET_APPLICATION_DATA_VALUE *value);
+BACNET_STACK_EXPORT
+int bacapp_decode_data(
+    uint8_t *apdu,
+    uint8_t tag_data_type,
+    uint32_t len_value_type,
+    BACNET_APPLICATION_DATA_VALUE *value);
 
-    BACNET_STACK_EXPORT
-    int bacapp_decode_application_data(
-        uint8_t * apdu,
-        unsigned max_apdu_len,
-        BACNET_APPLICATION_DATA_VALUE * value);
+BACNET_STACK_EXPORT
+int bacapp_decode_application_data(
+    uint8_t *apdu,
+    unsigned max_apdu_len,
+    BACNET_APPLICATION_DATA_VALUE *value);
 
-    BACNET_STACK_EXPORT
-    bool bacapp_decode_application_data_safe(
-        uint8_t * new_apdu,
-        uint32_t new_apdu_len,
-        BACNET_APPLICATION_DATA_VALUE * value);
+BACNET_STACK_EXPORT
+bool bacapp_decode_application_data_safe(
+    uint8_t *new_apdu,
+    uint32_t new_apdu_len,
+    BACNET_APPLICATION_DATA_VALUE *value);
 
-    BACNET_STACK_EXPORT
-    int bacapp_encode_application_data(
-        uint8_t * apdu,
-        BACNET_APPLICATION_DATA_VALUE * value);
+BACNET_STACK_EXPORT
+int bacapp_encode_application_data(
+    uint8_t *apdu,
+    BACNET_APPLICATION_DATA_VALUE *value);
 
-    BACNET_STACK_EXPORT
-    int bacapp_decode_context_data(
-        uint8_t * apdu,
-        unsigned max_apdu_len,
-        BACNET_APPLICATION_DATA_VALUE * value,
-        BACNET_PROPERTY_ID property);
+BACNET_STACK_EXPORT
+int bacapp_decode_context_data(
+    uint8_t *apdu,
+    unsigned max_apdu_len,
+    BACNET_APPLICATION_DATA_VALUE *value,
+    BACNET_PROPERTY_ID property);
 
-    BACNET_STACK_EXPORT
-    int bacapp_encode_context_data(
-        uint8_t * apdu,
-        BACNET_APPLICATION_DATA_VALUE * value,
-        BACNET_PROPERTY_ID property);
+BACNET_STACK_EXPORT
+int bacapp_encode_context_data(
+    uint8_t *apdu,
+    BACNET_APPLICATION_DATA_VALUE *value,
+    BACNET_PROPERTY_ID property);
 
-    BACNET_STACK_EXPORT
-    int bacapp_encode_context_data_value(
-        uint8_t * apdu,
-        uint8_t context_tag_number,
-        BACNET_APPLICATION_DATA_VALUE * value);
+BACNET_STACK_EXPORT
+int bacapp_encode_context_data_value(
+    uint8_t *apdu,
+    uint8_t context_tag_number,
+    BACNET_APPLICATION_DATA_VALUE *value);
 
-    BACNET_STACK_EXPORT
-    BACNET_APPLICATION_TAG bacapp_context_tag_type(
-        BACNET_PROPERTY_ID property,
-        uint8_t tag_number);
+BACNET_STACK_EXPORT
+BACNET_APPLICATION_TAG bacapp_context_tag_type(
+    BACNET_PROPERTY_ID property,
+    uint8_t tag_number);
 
-    BACNET_STACK_EXPORT
-    int bacapp_decode_generic_property(
-        uint8_t * apdu,
-        int max_apdu_len,
-        BACNET_APPLICATION_DATA_VALUE * value,
-        BACNET_PROPERTY_ID prop);
-    BACNET_STACK_EXPORT
-    int bacapp_decode_known_property(uint8_t *apdu,
-        int max_apdu_len,
-        BACNET_APPLICATION_DATA_VALUE *value,
-        BACNET_OBJECT_TYPE object_type,
-        BACNET_PROPERTY_ID property);
+BACNET_STACK_EXPORT
+int bacapp_decode_generic_property(
+    uint8_t *apdu,
+    int max_apdu_len,
+    BACNET_APPLICATION_DATA_VALUE *value,
+    BACNET_PROPERTY_ID prop);
+BACNET_STACK_EXPORT
+int bacapp_decode_known_property(uint8_t *apdu,
+                                 int max_apdu_len,
+                                 BACNET_APPLICATION_DATA_VALUE *value,
+                                 BACNET_OBJECT_TYPE object_type,
+                                 BACNET_PROPERTY_ID property);
 
-    BACNET_STACK_EXPORT
-    int bacapp_known_property_tag(
-        BACNET_OBJECT_TYPE object_type,
-        BACNET_PROPERTY_ID property);
+BACNET_STACK_EXPORT
+int bacapp_known_property_tag(
+    BACNET_OBJECT_TYPE object_type,
+    BACNET_PROPERTY_ID property);
 
-    BACNET_STACK_EXPORT
-    bool bacapp_copy(
-        BACNET_APPLICATION_DATA_VALUE * dest_value,
-        BACNET_APPLICATION_DATA_VALUE * src_value);
+BACNET_STACK_EXPORT
+bool bacapp_copy(
+    BACNET_APPLICATION_DATA_VALUE *dest_value,
+    BACNET_APPLICATION_DATA_VALUE *src_value);
 
-    /* returns the length of data between an opening tag and a closing tag.
-       Expects that the first octet contain the opening tag.
-       Include a value property identifier for context specific data
-       such as the value received in a WriteProperty request */
-    BACNET_STACK_EXPORT
-    int bacapp_data_len(
-        uint8_t * apdu,
-        unsigned max_apdu_len,
-        BACNET_PROPERTY_ID property);
-    BACNET_STACK_EXPORT
-    int bacapp_decode_data_len(
-        uint8_t * apdu,
-        uint8_t tag_data_type,
-        uint32_t len_value_type);
-    BACNET_STACK_EXPORT
-    int bacapp_decode_application_data_len(
-        uint8_t * apdu,
-        unsigned max_apdu_len);
-    BACNET_STACK_EXPORT
-    int bacapp_decode_context_data_len(
-        uint8_t * apdu,
-        unsigned max_apdu_len,
-        BACNET_PROPERTY_ID property);
+/* returns the length of data between an opening tag and a closing tag.
+   Expects that the first octet contain the opening tag.
+   Include a value property identifier for context specific data
+   such as the value received in a WriteProperty request */
+BACNET_STACK_EXPORT
+int bacapp_data_len(
+    uint8_t *apdu,
+    unsigned max_apdu_len,
+    BACNET_PROPERTY_ID property);
+BACNET_STACK_EXPORT
+int bacapp_decode_data_len(
+    uint8_t *apdu,
+    uint8_t tag_data_type,
+    uint32_t len_value_type);
+BACNET_STACK_EXPORT
+int bacapp_decode_application_data_len(
+    uint8_t *apdu,
+    unsigned max_apdu_len);
+BACNET_STACK_EXPORT
+int bacapp_decode_context_data_len(
+    uint8_t *apdu,
+    unsigned max_apdu_len,
+    BACNET_PROPERTY_ID property);
 
 #ifndef BACAPP_PRINT_ENABLED
 #if PRINT_ENABLED
 #define BACAPP_PRINT_ENABLED
 #endif
 #endif
-    BACNET_STACK_EXPORT
-    int bacapp_snprintf_value(
-        char *str,
-        size_t str_len,
-        BACNET_OBJECT_PROPERTY_VALUE * object_value);
+BACNET_STACK_EXPORT
+int bacapp_snprintf_value(
+    char *str,
+    size_t str_len,
+    BACNET_OBJECT_PROPERTY_VALUE *object_value);
 
 #ifdef BACAPP_PRINT_ENABLED
-    BACNET_STACK_EXPORT
-    bool bacapp_parse_application_data(
-        BACNET_APPLICATION_TAG tag_number,
-        char *argv,
-        BACNET_APPLICATION_DATA_VALUE * value);
-    BACNET_STACK_EXPORT
-    bool bacapp_print_value(
-        FILE * stream,
-        BACNET_OBJECT_PROPERTY_VALUE * value);
+BACNET_STACK_EXPORT
+bool bacapp_parse_application_data(
+    BACNET_APPLICATION_TAG tag_number,
+    char *argv,
+    BACNET_APPLICATION_DATA_VALUE *value);
+BACNET_STACK_EXPORT
+bool bacapp_print_value(
+    FILE *stream,
+    BACNET_OBJECT_PROPERTY_VALUE *value);
 #else
 /* Provide harmless return values */
 #define bacapp_parse_application_data(x,y,z)   false
-#define bacapp_print_value(x,y) 			   false
+#define bacapp_print_value(x,y)                false
 #endif
 
-    BACNET_STACK_EXPORT
-    bool bacapp_same_value(
-        BACNET_APPLICATION_DATA_VALUE * value,
-        BACNET_APPLICATION_DATA_VALUE * test_value);
+BACNET_STACK_EXPORT
+bool bacapp_same_value(
+    BACNET_APPLICATION_DATA_VALUE *value,
+    BACNET_APPLICATION_DATA_VALUE *test_value);
 
 #ifdef __cplusplus
 }
